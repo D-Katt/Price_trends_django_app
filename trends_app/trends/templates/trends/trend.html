@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price Trends</title>
-</head>
-<body>
-    <h1>Динамика цен на выбранный товар</h1>
-    <p>Прогноз построен на основе предшествующей динамики.</p>
-</body>
-</html>
+<!-- Page showing price trend and forecast for selected cathegory -->
+
+{% extends 'trends/base.html' %}
+
+{% block content %}
+    <h3 class="text-center pt-3">Динамика цен на {{ item }}</h3>
+    {% autoescape off %}
+        {{ plot_div }}
+    {% endautoescape %}
+    <p>Прогноз цен построен на основе предшествующей динамики и не учитывает влияние внешних факторов.</p>
+{% endblock content %}

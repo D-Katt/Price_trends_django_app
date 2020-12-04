@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price Trends</title>
-</head>
-<body>
-    <h1>Динамика цен</h1>
-    <p>Выберите интересующий вас товар.</p>
-    <p>Прогноз цен будет построен на основе предшествующей динамики.</p>
-</body>
-</html>
+<!-- Home page before user logged in -->
+
+{% extends 'trends/base.html' %}
+
+{% block content %}
+
+    <!-- Add if statement to check if the user is logged in -->
+
+    <!-- Case 1: user is not logged in -->
+    <div class="border bg-light">
+        <p class="pl-3 pt-3">Для входа в систему нажмите 'Login' и введите логин и пароль пользователя.</p>
+        <p class="pl-3">Если вы забыли пароль или не можете войти в систему, свяжитесь с администратором сайта.</p>
+    </div>
+
+    <!-- Case 2: user is logged in -->
+    <div class="border bg-light">
+        <h3>Выберите категорию</h3>
+        <div class="list-group">
+            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Золото Comex</a>
+            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Медь</a>
+            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Нефть марки Brent</a>
+        </div>
+    </div>
+
+{% endblock content %}
