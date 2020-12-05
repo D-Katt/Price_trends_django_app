@@ -14,12 +14,19 @@
 
     <!-- Case 2: user is logged in -->
     <div class="border bg-light">
-        <h3>Выберите категорию</h3>
-        <div class="list-group">
-            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Золото Comex</a>
-            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Медь</a>
-            <a href="{% url 'trend' %}" class="list-group-item list-group-item-action">Нефть марки Brent</a>
-        </div>
+        <p class="font-weight-bold">Текущий пользователь: {{ user.id }}</p>
+        <p>Чтобы увидеть график с динамикой и прогнозом цен на интересующий вас товар, выберите одну из категорий.</p>
+        <form action="trend" method="GET">
+            <div class="form-group">
+                <h3 for="selectitems">Выберите категорию</h3>
+                <select class="form-control form-control-lg" id="selectitems" name="dropdown">
+                    <option value="gold_price">Золото Comex</option>
+                    <option value="copper_price">Медь</option>
+                    <option value="oil_price">Нефть марки Brent</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Показать график</button>
+        </form>
     </div>
 
 {% endblock content %}

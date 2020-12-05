@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from trends.models import Price
+from django.contrib.auth.models import User
+
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 
 import pandas as pd
 
+# Словарь для преобразования названий столбцов базы данных в названия для заголовка над графиком:
 item_names = {'gold_price': 'золото', 'oil_price': 'нефть', 'copper_price': 'медь'}
 
 
@@ -17,8 +20,14 @@ def trend(request):
     """Функция отображает страницу с динамикой и прогнозом цен
     выбранного товара / категории."""
 
-    # TODO: Как-то передать имя столбца в запросе при переходе по ссылке
-    item = 'copper_price'
+    # Извлекаем из запроса наименование товара:
+    if request.method == 'GET':
+        try:
+            item = request.GET['dropdown']
+        except Exception:
+            # Если пользователь вводит ссылку на /trend/ не выбрав категорию,
+            # перенаправляем его на главную страницу сайта:
+            return redirect('/')
 
     # Извлекаем из базы данных нужные столбцы и преобразуем в pd.DataFrame:
     prices = Price
