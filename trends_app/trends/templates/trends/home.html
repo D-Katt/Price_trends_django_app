@@ -15,14 +15,23 @@
     <!-- Case 2: user is logged in -->
     <div class="border bg-light">
         <p class="font-weight-bold">Текущий пользователь: {{ user.id }}</p>
-        <p>Чтобы увидеть график с динамикой и прогнозом цен на интересующий вас товар, выберите одну из категорий.</p>
+        <p>Чтобы построить график с динамикой и прогнозом цен на интересующий вас товар,
+        выберите одну из категорий и укажите горизонт прогнозирования.</p>
         <form action="trend" method="GET">
             <div class="form-group">
                 <h3 for="selectitems">Выберите категорию</h3>
-                <select class="form-control form-control-lg" id="selectitems" name="dropdown">
+                <select class="form-control form-control-lg" id="selectitems" name="items">
                     <option value="gold_price">Золото Comex</option>
                     <option value="copper_price">Медь</option>
                     <option value="oil_price">Нефть марки Brent</option>
+                </select>
+                <h3 for="selectmonths">Выберите горизонт прогнозирования</h3>
+                <select class="form-control form-control-lg" id="selectmonths" name="months">
+                    <option value="1">1 месяц</option>
+                    <option value="3">3 месяца</option>
+                    <option value="6">6 месяцев</option>
+                    <option value="9">9 месяцев</option>
+                    <option value="12">12 месяцев</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Показать график</button>

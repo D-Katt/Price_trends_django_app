@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from trends.models import Price
 from django.contrib.auth.models import User
 
+from trends.forecast import linear_trend
+
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 
@@ -23,7 +25,8 @@ def trend(request):
     # Извлекаем из запроса наименование товара:
     if request.method == 'GET':
         try:
-            item = request.GET['dropdown']
+            item = request.GET['items']
+            n_months = int(request.GET['months'])
         except Exception:
             # Если пользователь вводит ссылку на /trend/ не выбрав категорию,
             # перенаправляем его на главную страницу сайта:
@@ -32,14 +35,19 @@ def trend(request):
     # Извлекаем из базы данных нужные столбцы и преобразуем в pd.DataFrame:
     prices = Price
     data = pd.DataFrame(Price.objects.all().values('date', item))
+    data.columns = ['date', 'price']
+
+    # Делаем прогноз:
+    forecast = linear_trend(data, n_months)
 
     # График для отображения на странице:
-    x_data = data['date']
-    y_data = data[item]
-    fig = Scatter(x=x_data, y=y_data,
-                  mode='lines', name='test',
+    fig_actual = Scatter(x=data['date'], y=data['price'],
+                  mode='lines', name='Динамика',
                   opacity=0.8, marker_color='green')
-    plot_div = plot([fig], output_type='div')
+    fig_trend = Scatter(x=forecast['date'], y=forecast['price'],
+                  mode='lines', name='Прогноз',
+                  opacity=0.8, marker_color='red')
+    plot_div = plot([fig_actual, fig_trend], output_type='div')
  
     context = {
         'item': item_names[item],
