@@ -6,6 +6,8 @@
     <h3 class="text-center pt-3">Динамика цен на {{ item }}</h3>
     {% autoescape off %}
         {{ plot_div }}
+        {{ table_div }}
     {% endautoescape %}
-    <p>Прогноз цен построен на основе предшествующей динамики и не учитывает влияние внешних факторов.</p>
+    <p class="font-weight-bold pt-3">Прогнозируемая цена: {{ pred_price }} ({{ pc_change }})</p>
+    <pclass="pt-3">Прогноз цен построен на основе предшествующей динамики и не учитывает влияние внешних факторов.</p>
 {% endblock content %}

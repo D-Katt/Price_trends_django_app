@@ -16,22 +16,27 @@
     <div class="border bg-light">
         <p class="font-weight-bold">Текущий пользователь: {{ user.id }}</p>
         <p>Чтобы построить график с динамикой и прогнозом цен на интересующий вас товар,
-        выберите одну из категорий и укажите горизонт прогнозирования.</p>
+        выберите одну из товарных категорий, укажите метод прогнозирования и горизонт прогноза.</p>
         <form action="trend" method="GET">
             <div class="form-group">
-                <h3 for="selectitems">Выберите категорию</h3>
+                <h5 for="selectitems">Товарная категория</h3>
                 <select class="form-control form-control-lg" id="selectitems" name="items">
                     <option value="gold_price">Золото Comex</option>
                     <option value="copper_price">Медь</option>
                     <option value="oil_price">Нефть марки Brent</option>
                 </select>
-                <h3 for="selectmonths">Выберите горизонт прогнозирования</h3>
+                <h5 for="selectmonths">Горизонт прогноза</h3>
                 <select class="form-control form-control-lg" id="selectmonths" name="months">
                     <option value="1">1 месяц</option>
                     <option value="3">3 месяца</option>
                     <option value="6">6 месяцев</option>
                     <option value="9">9 месяцев</option>
                     <option value="12">12 месяцев</option>
+                </select>
+                <h5 for="selectmethod">Метод прогнозирования</h3>
+                <select class="form-control form-control-lg" id="selectmethod" name="methods">
+                    <option value="linregression">Линейная регрессия</option>
+                    <option value="expsmoothing">Экспоненциальное сглаживание</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Показать график</button>
