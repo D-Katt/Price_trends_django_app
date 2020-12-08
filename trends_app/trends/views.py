@@ -115,6 +115,7 @@ def create_table(forecast_data: pd.DataFrame, n_months: int):
     # вместо прогнозных значений отображаем для пользователя сообщение об ошибке.
     else:
         table = ''
-        last_forecasted_price, pc_change = 'Ошибка', 'не удалось выполнить прогноз для выбранного периода'
+        last_forecasted_price = 'нет данных'
+        pc_change = 'не удалось выполнить прогноз для выбранного периода, выберите другой метод или измените горизонт прогноза'
 
     return table, last_forecasted_price, pc_change

@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 
-from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
+from statsmodels.tsa.api import ExponentialSmoothing
 
 import pandas as pd
 import numpy as np

@@ -1,46 +1,47 @@
-<!-- Home page before user logged in -->
-
 {% extends 'trends/base.html' %}
 
 {% block content %}
 
-    <!-- Add if statement to check if the user is logged in -->
+    {% if user.is_authenticated %}
 
-    <!-- Case 1: user is not logged in -->
-    <div class="border bg-light">
-        <p class="pl-3 pt-3">Для входа в систему нажмите 'Login' и введите логин и пароль пользователя.</p>
-        <p class="pl-3">Если вы забыли пароль или не можете войти в систему, свяжитесь с администратором сайта.</p>
-    </div>
+        <div class="border bg-light">
+            <p class="font-weight-bold">Пользователь: {{ user.username }}</p>
+            <p>Чтобы построить график с динамикой и прогнозом цен на интересующий вас товар,
+            выберите одну из товарных категорий, укажите метод прогнозирования и горизонт прогноза.</p>
+            <form action="trend" method="GET">
+                <div class="form-group">
+                    <h5 for="selectitems">Товарная категория</h3>
+                    <select class="form-control form-control-lg" id="selectitems" name="items">
+                        <option value="gold_price">Золото Comex</option>
+                        <option value="copper_price">Медь</option>
+                        <option value="oil_price">Нефть марки Brent</option>
+                    </select>
+                    <h5 for="selectmonths">Горизонт прогноза</h3>
+                    <select class="form-control form-control-lg" id="selectmonths" name="months">
+                        <option value="1">1 месяц</option>
+                        <option value="3">3 месяца</option>
+                        <option value="6">6 месяцев</option>
+                        <option value="9">9 месяцев</option>
+                        <option value="12">12 месяцев</option>
+                    </select>
+                    <h5 for="selectmethod">Метод прогнозирования</h3>
+                    <select class="form-control form-control-lg" id="selectmethod" name="methods">
+                        <option value="linregression">Линейная регрессия</option>
+                        <option value="expsmoothing">Экспоненциальное сглаживание</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Показать график</button>
+            </form>
+        </div>
 
-    <!-- Case 2: user is logged in -->
-    <div class="border bg-light">
-        <p class="font-weight-bold">Текущий пользователь: {{ user.id }}</p>
-        <p>Чтобы построить график с динамикой и прогнозом цен на интересующий вас товар,
-        выберите одну из товарных категорий, укажите метод прогнозирования и горизонт прогноза.</p>
-        <form action="trend" method="GET">
-            <div class="form-group">
-                <h5 for="selectitems">Товарная категория</h3>
-                <select class="form-control form-control-lg" id="selectitems" name="items">
-                    <option value="gold_price">Золото Comex</option>
-                    <option value="copper_price">Медь</option>
-                    <option value="oil_price">Нефть марки Brent</option>
-                </select>
-                <h5 for="selectmonths">Горизонт прогноза</h3>
-                <select class="form-control form-control-lg" id="selectmonths" name="months">
-                    <option value="1">1 месяц</option>
-                    <option value="3">3 месяца</option>
-                    <option value="6">6 месяцев</option>
-                    <option value="9">9 месяцев</option>
-                    <option value="12">12 месяцев</option>
-                </select>
-                <h5 for="selectmethod">Метод прогнозирования</h3>
-                <select class="form-control form-control-lg" id="selectmethod" name="methods">
-                    <option value="linregression">Линейная регрессия</option>
-                    <option value="expsmoothing">Экспоненциальное сглаживание</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Показать график</button>
-        </form>
-    </div>
+    {% else %}
+
+        <div class="border bg-light">
+            <p class="pl-3 pt-3">Для входа в систему нажмите "Вход" и введите имя пользователя и пароль.</p>
+            <p class="pl-3">Если вы забыли пароль или не можете войти в систему,
+            свяжитесь с администратором сайта.</p>
+        </div>
+
+    {% endif %}
 
 {% endblock content %}

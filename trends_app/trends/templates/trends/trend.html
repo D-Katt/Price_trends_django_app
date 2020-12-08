@@ -3,11 +3,25 @@
 {% extends 'trends/base.html' %}
 
 {% block content %}
-    <h3 class="text-center pt-3">Динамика цен на {{ item }}</h3>
-    {% autoescape off %}
-        {{ plot_div }}
-        {{ table_div }}
-    {% endautoescape %}
-    <p class="font-weight-bold pt-3">Прогнозируемая цена: {{ pred_price }} ({{ pc_change }})</p>
-    <pclass="pt-3">Прогноз цен построен на основе предшествующей динамики и не учитывает влияние внешних факторов.</p>
+
+    {% if user.is_authenticated %}
+
+        <h3 class="text-center pt-3">Динамика цен на {{ item }}</h3>
+        {% autoescape off %}
+            {{ plot_div }}
+            {{ table_div }}
+        {% endautoescape %}
+        <p class="font-weight-bold pt-3">Прогнозируемая цена: {{ pred_price }} ({{ pc_change }})</p>
+        <pclass="pt-3">Прогноз цен построен на основе предшествующей динамики и не учитывает влияние внешних факторов.</p>
+
+    {% else %}
+
+        <div class="border bg-light">
+            <p class="pl-3 pt-3">Для просмотра страницы необходимо зарегистрироваться.</p>
+            <p class="pl-3">Перейдите на страницу регистрации и введите имя пользователя и пароль.
+            Если вы забыли пароль или не можете войти в систему, свяжитесь с администратором сайта.</p>
+        </div>
+
+    {% endif %}
+
 {% endblock content %}
